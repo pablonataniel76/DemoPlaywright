@@ -1,19 +1,23 @@
 import { test, expect } from '@playwright/test';
 import dotenv from 'dotenv';
-import { passwordInputSelector, usernameInputSelector } from '../prestashop/ui/pages/login-page';
+import { LoginPage } from '../prestashop/ui/pages/login-page';
+//import { passwordInputSelector, usernameInputSelector } from '../prestashop/ui/pages/login-page';
 
 test('test', async ({ page }) => {
   //test.setTimeout(120_000); add timeout to the test
   await page.goto(process.env.URL!);
   await page.locator('#_desktop_user_info').click();
-  await page.locator(usernameInputSelector).click();
-  await page.locator(usernameInputSelector).fill(process.env.NAMEUSER!);
-  await page.locator(passwordInputSelector).click();
-  await page.locator(passwordInputSelector).fill(process.env.PASSWORD!);
-  await page.locator('#submit-login').click();
   //
-
+  const loginPage = new LoginPage(page);
   //
+  loginPage.login(process.env.NAMEUSER!, process.env.PASSWORD!);
+  /*
+  await loginPage.usernameInput.click();
+  await loginPage.usernameInput.fill(process.env.NAMEUSER!);
+  await loginPage.passwordInput.click();
+  await loginPage.passwordInput.fill(process.env.PASSWORD!);
+  await loginPage.loginButton.click();
+  */
   await page.locator('a').filter({ hasText: 'Vista rápida' }).nth(1).click();
   await page.locator('button').filter({ hasText: 'Añadir al carrito' }).click();
   await page.locator('button').filter({ hasText: 'Continuar comprando' }).click();
