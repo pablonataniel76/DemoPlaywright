@@ -1,14 +1,16 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, chromium } from '@playwright/test';
 import dotenv from 'dotenv';
 import { LoginPage } from '../prestashop/ui/pages/login-page';
 import { HomePage } from '../prestashop/ui/pages/HomePage';
 import { ItemDetailModal } from '../prestashop/ui/pages/ItemDetailModal';
 import { ConfirmationModal } from '../prestashop/ui/pages/ConfirmationModal';
+import { Header } from '../prestashop/ui/components/header';
 //import { passwordInputSelector, usernameInputSelector } from '../prestashop/ui/pages/login-page';
 
 test('test_cart', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const homePage = new HomePage(page);
+  const header = new Header(page);
   const itemDetailModal = new ItemDetailModal(page);
   const confirmationModal = new ConfirmationModal(page);
   //test.setTimeout(120_000); add timeout to the test
@@ -22,5 +24,7 @@ test('test_cart', async ({ page }) => {
   //await page.locator('.cart-content-btn a.btn-primary').click();
   //await confirmationModal.FinishPurchase('M', '5');
   
-  await page.locator('.logout').click();
+  //await page.locator('.logout').click();
+  await header.logout();
+  await page.close();
 });
