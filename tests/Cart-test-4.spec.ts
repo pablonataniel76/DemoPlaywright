@@ -1,30 +1,14 @@
-import { test, expect, chromium } from '@playwright/test';
-import dotenv from 'dotenv';
-import { LoginPage } from '../prestashop/ui/pages/login-page';
-import { HomePage } from '../prestashop/ui/pages/HomePage';
-import { ItemDetailModal } from '../prestashop/ui/pages/ItemDetailModal';
-import { ConfirmationModal } from '../prestashop/ui/pages/ConfirmationModal';
-import { Header } from '../prestashop/ui/components/header';
-//import { passwordInputSelector, usernameInputSelector } from '../prestashop/ui/pages/login-page';
+import { test } from '../prestashop/fixtures/testFixtures';
 
-test('test_cart', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const homePage = new HomePage(page);
-  const header = new Header(page);
-  const itemDetailModal = new ItemDetailModal(page);
-  const confirmationModal = new ConfirmationModal(page);
+test('test_cart', async ({ app, common }) => {
   //test.setTimeout(120_000); add timeout to the test
-  await page.goto(process.env.URL!);
-  await page.locator('#_desktop_user_info').click();
+  await app.page.goto(process.env.URL!);
+  await app.page.locator('#_desktop_user_info').click();
 
-  await loginPage.login(process.env.NAMEUSER!, process.env.PASSWORD!);
-  await homePage.openItemQuickView('Hummingbird printed sweater');
-  await itemDetailModal.openItemQuickView('M', '5');
-  await confirmationModal.FinishPurchase();
-  //await page.locator('.cart-content-btn a.btn-primary').click();
-  //await confirmationModal.FinishPurchase('M', '5');
-  
-  //await page.locator('.logout').click();
-  await header.logout();
-  await page.close();
+  await app.loginPage.login(process.env.NAMEUSER!, process.env.PASSWORD!);
+  await app.homePage.openItemQuickView('Hummingbird printed sweater');
+  await common.itemDetailModal.openItemQuickView('M', '5');
+  await common.confirmationModal.FinishPurchase();
+  await app.header.logout();
+  await app.page.close();
 });
