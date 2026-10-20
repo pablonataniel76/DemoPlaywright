@@ -5,6 +5,8 @@ import { HomePage } from '../ui/pages/HomePage';
 import { ItemDetailModal } from '../ui/pages/ItemDetailModal';
 import { LoginPage } from '../ui/pages/login-page';
 import { Header } from '../ui/components/header';
+import { NavigationBar } from '../ui/components/NavigationBar';
+import { ProductsFilterPage } from '../ui/pages/ProductsFilterPage';
 
 type AppFixtures = {
     page: Page;
@@ -19,9 +21,14 @@ type CommonFixtures = {
     
     itemDetailModal: ItemDetailModal;
     confirmationModal: ConfirmationModal;
+    navigationBar: NavigationBar;
 };
 
-export const test = base.extend<{ app: AppFixtures, common: CommonFixtures }>({
+type FiltersFixtures = {
+    productsFilterPage: ProductsFilterPage;
+};
+
+export const test = base.extend<{ app: AppFixtures, common: CommonFixtures, filter: FiltersFixtures }>({
     app: async ({ page }, use) => {
         await use({
             page,
@@ -36,8 +43,14 @@ export const test = base.extend<{ app: AppFixtures, common: CommonFixtures }>({
         await use({
             itemDetailModal: new ItemDetailModal(page),
             confirmationModal: new ConfirmationModal(page),
+            navigationBar: new NavigationBar(page),
         });
     },
+    filter: async ({ page }, use) => {
+        await use({
+            productsFilterPage: new ProductsFilterPage(page),
+        });
+    }
 });
 
 export { expect };
