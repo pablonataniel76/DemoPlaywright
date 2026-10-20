@@ -63,39 +63,6 @@ test.describe('Payment flow', () => {
       await filter.productsFilterPage.setPriceRangeByDragging(20, 40);
     });
 
-    
-    // await test.step('Filter by price', async () => {
-    //     const priceSlider = filter.productsFilterPage.priceSlider;
-    //     const boundingBox = await priceSlider.boundingBox();
-    //     if (boundingBox) {
-    //         const sliderWidth = boundingBox.width;
-    //         const handleWidth = 20; // Approximate width of the slider handle
-    //         const targetValue = 50; // Target value to set the slider to
-    //         const percentage = targetValue / 100; // Convert target value to percentage
-    //         const xOffset = sliderWidth * percentage - handleWidth / 2; // Calculate x offset for the target value
-
-    //         await priceSlider.hover();
-    //         await filter.productsFilterPage.page.mouse.down();
-    //         await filter.productsFilterPage.page.mouse.move(boundingBox.x + xOffset, boundingBox.y + boundingBox.height / 2);
-    //         await filter.productsFilterPage.page.mouse.up();
-    //     } else {
-    //         throw new Error('Price slider not found');
-    //     };
-
-    // });
-
-
-
-    // // Filter by color "Beige"
-    // await test.step('Filter by color "Beige"', async () => {
-    //     await filter.productsFilterPage.filterByColor('Blanco');
-    // });
-
-    // // Filter by composition "Cotton"
-    // await test.step('Filter by composition "Cotton"', async () => {
-    //     await filter.productsFilterPage.filterByComposition('Poliéster');
-    // });
-
   });
 
 });
