@@ -19,18 +19,6 @@ test.describe('Payment flow', () => {
     });
   });
 
-  // test.afterEach(async ({ app }) => {
-  //   // Sign out of the customer account.
-  //   await test.step('Sign out of the customer account', async () => {
-  //     await app.header.logout();
-  //   });
-
-  //   // Close the browser page.
-  //   await test.step('Close the browser page', async () => {
-  //     await app.page.close();
-  //   });
-  // });
-
   test.skip('payment_test', async ({ app, common }) => {
     // Open the Hummingbird printed sweater quick view.
     await test.step('Open the Hummingbird printed sweater quick view', async () => {
