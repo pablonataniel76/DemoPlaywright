@@ -1,5 +1,4 @@
 import { test } from '../prestashop/fixtures/testFixtures';
-//import { pro }
 
 test.describe('Payment flow', () => {
   test.beforeEach(async ({ app }) => {
@@ -19,7 +18,17 @@ test.describe('Payment flow', () => {
     });
   });
 
-  test.skip('payment_test', async ({ app, common }) => {
+  // test.afterEach(async ({ app }) => {
+  //   await test.step('Log out of the customer account', async () => {
+  //     await app.header.logout();
+  //   });
+
+  //   await test.step('Close the browser page', async () => {
+  //     await app.page.close();
+  //   });
+  // });
+
+  test('payment_test', async ({ app, common, cart, checkout }) => {
     // Open the Hummingbird printed sweater quick view.
     await test.step('Open the Hummingbird printed sweater quick view', async () => {
       await app.homePage.openItemQuickView('Hummingbird printed sweater');
@@ -34,9 +43,33 @@ test.describe('Payment flow', () => {
     await test.step('Complete the purchase', async () => {
       await common.confirmationModal.FinishPurchase();
     });
+
+    // Proceed with checkout.
+    await test.step('Proceed with checkout', async () => {
+      await cart.cartPage.proceedCheckout();
+    });
+
+    await test.step('Fill in the checkout form', async () => {
+      await checkout.checkoutPage.proceedCheckout(
+        'My Address',
+        'John',
+        'Doe',
+        'My Company',
+        '123456789',
+        '123 Main St',
+        'Apt 4B',
+        'AE',
+        '12345',
+        'Anytown',
+        'Estados Unidos',
+        '+1 555-555-5555',
+        false
+      );
+    });
+
   });
 
-  test('@test2 filter_accessoriesForHome', async ({ app, common, filter }) => {
+  test.skip('@test2 filter_accessoriesForHome', async ({ app, common, filter }) => {
     // navigate to accessories_papeleria
     await test.step('Navigate to accessories>papeleria', async () => {
       await common.navigationBar.navigateTo('accesorios.accesorios_para_el_hogar');

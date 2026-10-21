@@ -7,6 +7,8 @@ import { LoginPage } from '../ui/pages/login-page';
 import { Header } from '../ui/components/header';
 import { NavigationBar } from '../ui/components/NavigationBar';
 import { ProductsFilterPage } from '../ui/pages/ProductsFilterPage';
+import { CartPage } from '../ui/pages/CartPage';
+import { CheckoutPage } from '../ui/pages/CheckoutPage';
 
 type AppFixtures = {
     page: Page;
@@ -28,7 +30,15 @@ type FiltersFixtures = {
     productsFilterPage: ProductsFilterPage;
 };
 
-export const test = base.extend<{ app: AppFixtures, common: CommonFixtures, filter: FiltersFixtures }>({
+type CartFixtures = {
+    cartPage: CartPage;
+};
+
+type CheckoutFixtures = {
+    checkoutPage: CheckoutPage;
+};
+
+export const test = base.extend<{ app: AppFixtures, common: CommonFixtures, filter: FiltersFixtures, cart: CartFixtures, checkout: CheckoutFixtures }>({
     app: async ({ page }, use) => {
         await use({
             page,
@@ -50,7 +60,17 @@ export const test = base.extend<{ app: AppFixtures, common: CommonFixtures, filt
         await use({
             productsFilterPage: new ProductsFilterPage(page),
         });
-    }
+    },
+    cart: async ({ page }, use) => {
+        await use({
+            cartPage: new CartPage(page),
+        });
+    },
+    checkout: async ({ page }, use) => {
+        await use({
+            checkoutPage: new CheckoutPage(page),
+        });
+    }   
 });
 
 export { expect };
