@@ -49,22 +49,43 @@ test.describe('Payment flow', () => {
       await cart.cartPage.proceedCheckout();
     });
 
+    // await test.step('Fill in the checkout form', async () => {
+    //   await checkout.checkoutPage.proceedCheckout(
+    //     'My Address',
+    //     'John',
+    //     'Doe',
+    //     'My Company',
+    //     '123456789',
+    //     '123 Main St',
+    //     'Apt 4B',
+    //     'AE',
+    //     '12345',
+    //     'Anytown',
+    //     'Estados Unidos',
+    //     '+1 555-555-5555',
+    //     false
+    //   );
+    // });
+
     await test.step('Fill in the checkout form', async () => {
-      await checkout.checkoutPage.proceedCheckout(
-        'My Address',
-        'John',
-        'Doe',
-        'My Company',
-        '123456789',
-        '123 Main St',
-        'Apt 4B',
-        'AE',
-        '12345',
-        'Anytown',
-        'Estados Unidos',
-        '+1 555-555-5555',
-        false
-      );
+      const checkoutData = {
+        "Country": "Estados Unidos",
+        "Alias": "My Address",
+        "First Name": "John",
+        "Last Name": "Doe",
+        "Company": "My Company",
+        // "VAT Number": "123456789",
+        "Address": "123 Main St",
+        "Address Complement": "Apt 4B",
+        "State": "AE",
+        "Postal Code": "12345",
+        "City": "Anytown",
+        // "Tax Identification Number": "+1 555-555-5555",
+        "Phone": "+1 555-555-5555",
+        // "Use Address for Invoices": false,
+      };
+
+      await checkout.checkoutPage.setCartDetailsInUI(checkoutData);
     });
 
   });
