@@ -28,6 +28,9 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
+    /* Capture a screenshot when a test fails. */
+    screenshot: 'only-on-failure',
+
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     launchOptions: {
@@ -43,9 +46,10 @@ export default defineConfig({
         viewport: null,
         launchOptions: {
         args: ['--start-maximized'], // Start the browser maximized
+        //slowMo: 1000, // Add a 1-second delay between each action
         },
       },
-      //slowMo: 1000, // Add a 1-second delay between each action
+      //slowMo: 500, // Add a 1-second delay between each action
       
     },
 

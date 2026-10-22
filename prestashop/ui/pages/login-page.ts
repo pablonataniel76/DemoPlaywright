@@ -2,16 +2,18 @@
 //export const passwordInputSelector = '#field-password';
 
 import { Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class LoginPage {
-    readonly page: Page;
+export class LoginPage extends BasePage{
+    // readonly page: Page;
     readonly usernameInput;
     readonly passwordInput;
     readonly loginButton;
     
     constructor(page: Page) {
+        super(page);
         console.log('LoginPage constructor called');
-        this.page = page;
+        // this.page = page;
         this.usernameInput = page.locator('#field-email');
         this.passwordInput = page.locator('#field-password');
         this.loginButton = page.locator('#submit-login');

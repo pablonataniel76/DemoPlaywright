@@ -17,18 +17,19 @@ test.describe('Payment flow', () => {
       await app.loginPage.login(process.env.NAMEUSER!, process.env.PASSWORD!);
     });
   });
+  
+  // Closes the browser page and logs out of the customer account after each test.
+  test.afterEach(async ({ app }) => {
+    await test.step('Log out of the customer account', async () => {
+      await app.header.logout();
+    });
 
-  // test.afterEach(async ({ app }) => {
-  //   await test.step('Log out of the customer account', async () => {
-  //     await app.header.logout();
-  //   });
+    await test.step('Close the browser page', async () => {
+      await app.page.close();
+    });
+  });
 
-  //   await test.step('Close the browser page', async () => {
-  //     await app.page.close();
-  //   });
-  // });
-
-  test('payment_test', async ({ app, common, cart, checkout }) => {
+  test('@payment payment_test', async ({ app, common, cart, checkout }) => {
     // Open the Hummingbird printed sweater quick view.
     await test.step('Open the Hummingbird printed sweater quick view', async () => {
       await app.homePage.openItemQuickView('Hummingbird printed sweater');
@@ -41,7 +42,7 @@ test.describe('Payment flow', () => {
 
     // Complete the purchase.
     await test.step('Complete the purchase', async () => {
-      await common.confirmationModal.FinishPurchase();
+      await common.confirmationModal.finishPurchase();
     });
 
     // Proceed with checkout.
@@ -85,7 +86,11 @@ test.describe('Payment flow', () => {
         // "Use Address for Invoices": false,
       };
 
-      await checkout.checkoutPage.setCartDetailsInUI(checkoutData);
+      await checkout.checkoutPage.setFormDetailsInUI(checkoutData);
+    });
+
+    await test.step('Go home page', async () => {
+      await app.header.goHomePage();
     });
 
   });

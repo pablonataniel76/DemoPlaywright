@@ -1,8 +1,9 @@
 import { Page, Locator } from '@playwright/test';
 import { StrategySetter } from '../../utils/StrategysMethod';
+import { BasePage } from './BasePage';
 
-export class CheckoutPage {
-    readonly page: Page;
+export class CheckoutPage extends BasePage{
+    // readonly page: Page;
 
     readonly continueButton: Locator;
 
@@ -32,7 +33,8 @@ export class CheckoutPage {
 
     constructor(page: Page) {
         console.log('CheckoutPage constructor called');
-        this.page = page;
+        super(page);
+        // this.page = page;
 
         this.continueButton = page.locator('button[name="confirm-addresses"]');
 
@@ -88,7 +90,7 @@ export class CheckoutPage {
         // await this.continueButton.click();
     }
 
-    async setCartDetailsInUI(data: Record<string, string | boolean>): Promise<void> {
+    async setFormDetailsInUI(data: Record<string, string | boolean>): Promise<void> {
         const strategyMap: Record<string, StrategySetter> = {
             "Country": async () => await this.countrySelect.selectOption(data["Country"] as string),
             "Alias": async () => await this.aliasInput.fill(data["Alias"] as string),
@@ -121,9 +123,9 @@ export class CheckoutPage {
         // await this.noteToAllSuppliersTxtxArea.press('Tab');
     }
 
-    async executeStrategy(strategy: StrategySetter): Promise<void> {
-        await strategy();   
-    }
+    // async executeStrategy(strategy: StrategySetter): Promise<void> {
+    //     await strategy();   
+    // }
 
     async selectShippingMethod(method: string) {
             await this.shippingMethodSelect.selectOption({ label: method });
